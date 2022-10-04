@@ -1,0 +1,73 @@
+<%- include("header") -%>
+<div class="container">
+  <div class="box" id="heading">
+    <!-- <h1><%= listTitle %></h1> -->
+  </div>
+
+  <div class="box">
+    <table class="table my-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Description</th>
+          <th scope="col">Due</th>
+          <th scope="col">Paid</th>
+          <th scope="col">Payment method</th>
+          <th scope="col">Payment date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i=0; i<newListFees.length; i++){%>
+        <tr class="fee">
+
+          <td>
+            <%= newListFees[i].feeId%>
+          </td>
+          <td>
+            <%= newListFees[i].feeDesc%>
+          </td>
+          <td>
+            <%= newListFees[i].dueDate%>
+          </td>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td>
+            <%= newListFees[i].paymentMethod%>
+          </td>
+          <td>
+            <%= newListFees[i].paymentDate%>
+          </td>
+        </tr>
+        <%}%>
+      </tbody>
+    </table>
+
+<h4>Insert new fee</h4>
+    <form class="item" action="/" method="post">
+      <div class="form-floating my-1">
+        <label for="feeDescription" class="form-label">Fee ID</label>
+        <input type="number" class="form-control" name="feeId" placeholder="###" autocomplete="off">
+      </div>
+      <div class="form-floating my-1">
+        <label for="feeDescription" class="form-label">Fee description</label>
+        <input type="text" class="form-control" name="feeDescription" placeholder="Description" autocomplete="off">
+      </div>
+      <div class="form-floating my-1">
+        <label for="feeDescription" class="form-label">Due date</label>
+        <input type="date" class="form-control" name="dueDate" placeholder="###" autocomplete="off">
+      </div>
+      <div class="form-floating my-1">
+            <label for="feePaid" class="form-label">Fee paid</label>
+      <input class="form-control" list="feePaidOptions" id="feePaid" placeholder="Type to search...">
+    </div>
+      <datalist id="feePaidOptions">
+        <option value="YES">
+        <option value="NO">
+      </datalist>
+
+      <button class="btn btn-primary" type="submit" name="list" value=<%= listTitle %>>Add fee</button>
+        </form>
+  </div>
+</div><!-- / container-->
+<%- include("footer") -%>

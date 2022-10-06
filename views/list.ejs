@@ -4,13 +4,50 @@
     <!-- <h1><%= listTitle %></h1> -->
   </div>
 
+  <h4 class="mt-5">Insert new fee</h4>
+  <form class="item" action="/" method="post">
+    <div class="row mb-3">
+      <div class="col-2">
+        <label for="feeId" class="col-form-label">Fee ID</label>
+        <input type="number" class="form-control" name="feeId" placeholder="###" autocomplete="off">
+      </div>
+      <div class="col-10">
+        <label for="feeDescription" class="col-form-label">Fee description</label>
+        <input type="text" class="form-control" name="feeDescription" placeholder="Description" autocomplete="off">
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-2">
+        <label for="feeDueDate" class="col-form-label">Due date</label>
+        <input type="date" class="form-control" name="feeDueDate" placeholder="###" autocomplete="off">
+      </div>
+      <div class="col-2">
+        <label for="feePaymentDate" class="col-form-label">Payment date</label>
+        <input type="date" class="form-control" name="feePaymentDate" placeholder="###" autocomplete="off">
+      </div>
+      <div class="col-7">
+        <label for="feePaymentMethod" class="col-form-label">Payment method</label>
+        <input class="form-control" list="feePaymentMethodOptions" name="feePaymentMethod" placeholder="Type to search...">
+        <datalist id="feePaymentMethodOptions">
+          <option value="Bonifico IWBank">
+          <option value="Bonifico CheBanca">
+        </datalist>
+      </div>
+      <div class="form-group col-1">
+        <label for="feePaid" class="col-form-label">Fee paid</label><br />
+        <input type="checkbox" name="feePaid">
+      </div>
+    </div>
+    <button class="btn btn-primary " type="submit" name="list" value=<%= listTitle %>>Add fee</button>
+  </form>
+
   <div class="box">
     <table class="table my-5">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Description</th>
-          <th scope="col">Due</th>
+          <th scope="col">Due date</th>
           <th scope="col">Paid</th>
           <th scope="col">Payment method</th>
           <th scope="col">Payment date</th>
@@ -19,7 +56,6 @@
       <tbody>
         <% for (let i=0; i<newListFees.length; i++){%>
         <tr class="fee">
-
           <td>
             <%= newListFees[i].feeId%>
           </td>
@@ -27,47 +63,27 @@
             <%= newListFees[i].feeDesc%>
           </td>
           <td>
-            <%= newListFees[i].dueDate%>
+            <%= newListFees[i].feeDueDate%>
           </td>
           <td>
-            <input type="checkbox">
+            <% if (newListFees[i].feePaid === "on") {%>
+            <input type="checkbox" name="" value="true" checked>
+            <% } else { %>
+            <input type="checkbox" name="" value="false">
+            <% } %>
           </td>
           <td>
-            <%= newListFees[i].paymentMethod%>
+            <%= newListFees[i].feePaymentMethod%>
           </td>
           <td>
-            <%= newListFees[i].paymentDate%>
+            <%= newListFees[i].feePaymentDate%>
           </td>
         </tr>
         <%}%>
       </tbody>
     </table>
 
-<h4>Insert new fee</h4>
-    <form class="item" action="/" method="post">
-      <div class="form-floating my-1">
-        <label for="feeDescription" class="form-label">Fee ID</label>
-        <input type="number" class="form-control" name="feeId" placeholder="###" autocomplete="off">
-      </div>
-      <div class="form-floating my-1">
-        <label for="feeDescription" class="form-label">Fee description</label>
-        <input type="text" class="form-control" name="feeDescription" placeholder="Description" autocomplete="off">
-      </div>
-      <div class="form-floating my-1">
-        <label for="feeDescription" class="form-label">Due date</label>
-        <input type="date" class="form-control" name="dueDate" placeholder="###" autocomplete="off">
-      </div>
-      <div class="form-floating my-1">
-            <label for="feePaid" class="form-label">Fee paid</label>
-      <input class="form-control" list="feePaidOptions" id="feePaid" placeholder="Type to search...">
-    </div>
-      <datalist id="feePaidOptions">
-        <option value="YES">
-        <option value="NO">
-      </datalist>
 
-      <button class="btn btn-primary" type="submit" name="list" value=<%= listTitle %>>Add fee</button>
-        </form>
   </div>
 </div><!-- / container-->
 <%- include("footer") -%>

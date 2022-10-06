@@ -7,7 +7,7 @@ exports.getDate = function() {
     year: 'numeric'
   }
 
-  return today.toLocaleDateString('en-us', options);
+  return today.toLocaleDateString('it-IT', options);
 }
 
 exports.getDay = function() {

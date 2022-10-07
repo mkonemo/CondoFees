@@ -4,53 +4,20 @@
     <!-- <h1><%= listTitle %></h1> -->
   </div>
 
-  <h4 class="mt-5">Insert new fee</h4>
-  <form class="item" action="/" method="post">
-    <div class="row mb-3">
-      <div class="col-2">
-        <label for="feeId" class="col-form-label">Fee ID</label>
-        <input type="number" class="form-control" name="feeId" placeholder="###" autocomplete="off">
-      </div>
-      <div class="col-10">
-        <label for="feeDescription" class="col-form-label">Fee description</label>
-        <input type="text" class="form-control" name="feeDescription" placeholder="Description" autocomplete="off">
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-2">
-        <label for="feeDueDate" class="col-form-label">Due date</label>
-        <input type="date" class="form-control" name="feeDueDate" placeholder="###" autocomplete="off">
-      </div>
-      <div class="col-2">
-        <label for="feePaymentDate" class="col-form-label">Payment date</label>
-        <input type="date" class="form-control" name="feePaymentDate" placeholder="###" autocomplete="off">
-      </div>
-      <div class="col-7">
-        <label for="feePaymentMethod" class="col-form-label">Payment method</label>
-        <input class="form-control" list="feePaymentMethodOptions" name="feePaymentMethod" placeholder="Type to search...">
-        <datalist id="feePaymentMethodOptions">
-          <option value="Bonifico IWBank">
-          <option value="Bonifico CheBanca">
-        </datalist>
-      </div>
-      <div class="form-group col-1">
-        <label for="feePaid" class="col-form-label">Fee paid</label><br />
-        <input type="checkbox" name="feePaid">
-      </div>
-    </div>
-    <button class="btn btn-primary " type="submit" name="list" value=<%= listTitle %>>Add fee</button>
-  </form>
-
+  <%- include("form") -%>
+<hr />
   <div class="box">
     <table class="table my-5">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Description</th>
+          <th scope="col">Amount</th>
           <th scope="col">Due date</th>
           <th scope="col">Paid</th>
           <th scope="col">Payment method</th>
           <th scope="col">Payment date</th>
+          <th scope="col">Payment reason</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +28,9 @@
           </td>
           <td>
             <%= newListFees[i].feeDesc%>
+          </td>
+          <td>
+            <%= newListFees[i].feeAmount%>
           </td>
           <td>
             <%= newListFees[i].feeDueDate%>
@@ -77,6 +47,9 @@
           </td>
           <td>
             <%= newListFees[i].feePaymentDate%>
+          </td>
+          <td>
+            <%= newListFees[i].feePaymentReason%>
           </td>
         </tr>
         <%}%>

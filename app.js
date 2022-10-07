@@ -5,7 +5,7 @@ const ejs = require("ejs");
 
 const app = express();
 
-let fees = [{feeId:112, feeDesc:"Buy food"}, {feeId: 432, feeDesc:"Cook food"}, {feeId:564, feeDesc:"Eat food", feePaid: "NO"}];
+let fees = [{feeId:112, feeDesc:"Buy food", feePaymentReason:"Riscaldamento"}, {feeId: 432, feeDesc:"Cook food"}, {feeId:564, feeDesc:"Eat food", feePaid: "NO"}];
 
 app.set('view engine', 'ejs');
 
@@ -32,10 +32,12 @@ app.post("/", function(req, res) {
   let fee = {
     feeId:req.body.feeId,
     feeDesc:req.body.feeDescription,
+    feeDesc:req.body.feeAmount,
     feeDueDate: new Date(req.body.feeDueDate).toLocaleDateString('en-GB'),
     feePaid:req.body.feePaid,
     feePaymentMethod:req.body.feePaymentMethod,
-    feePaymentDate:new Date(req.body.feePaymentDate).toLocaleDateString('en-GB')
+    feePaymentDate:new Date(req.body.feePaymentDate).toLocaleDateString('en-GB'),
+    feePaymentReason:req.body.feePaymentReason
   }
 
     fees.push(fee);

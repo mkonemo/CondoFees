@@ -94,3 +94,17 @@ footer {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 } */
+
+button.delete-btn {
+  background: transparent;
+    border: 0;
+    color: grey;
+}
+
+button.delete-btn:hover {
+  color: black;
+}
+
+.text-right {
+  text-align: right;
+}

@@ -1,7 +1,7 @@
 <%- include("header") -%>
 <div class="container">
   <div class="box" id="heading">
-    <!-- <h1><%= listTitle %></h1> -->
+     <h1><%= listTitle %></h1>
   </div>
 
   <%- include("form") -%>
@@ -18,38 +18,49 @@
           <th scope="col">Payment method</th>
           <th scope="col">Payment date</th>
           <th scope="col">Payment reason</th>
+          <th>    </th>
         </tr>
       </thead>
       <tbody>
-        <% for (let i=0; i<newListFees.length; i++){%>
-        <tr class="fee">
+        <% for (let i=0; i<feeList.length; i++){%>
+        <tr id="tr_<%= i %>" class="fee">
           <td>
-            <%= newListFees[i].feeId%>
+            <%= feeList[i].feeId %>
           </td>
           <td>
-            <%= newListFees[i].feeDesc%>
+            <%= feeList[i].feeDescription %>
+          </td>
+          <td class="text-right">
+            <%= feeList[i].feeAmount %>€
+          </td>
+          <td  class="text-right">
+            <%= feeList[i].feeDueDate.toLocaleDateString('en-GB') %>
           </td>
           <td>
-            <%= newListFees[i].feeAmount%>
-          </td>
-          <td>
-            <%= newListFees[i].feeDueDate%>
-          </td>
-          <td>
-            <% if (newListFees[i].feePaid === "on") {%>
+            <% if (feeList[i].feePaid === "on") {%>
             <input type="checkbox" name="" value="true" checked>
+            <style>#tr_<%=i%>{background: springgreen;}</style>
             <% } else { %>
             <input type="checkbox" name="" value="false">
             <% } %>
           </td>
           <td>
-            <%= newListFees[i].feePaymentMethod%>
+            <%= feeList[i].feePaymentMethod %>
+          </td>
+          <td  class="text-right">
+            <%= feeList[i].feePaymentDate.toLocaleDateString('en-GB') %>
           </td>
           <td>
-            <%= newListFees[i].feePaymentDate%>
+            <%= feeList[i].feePaymentReason %>
           </td>
           <td>
-            <%= newListFees[i].feePaymentReason%>
+            <form>
+              <button class="delete-btn" type="submit" name="button">
+                <span class="material-symbols-outlined">
+delete
+</span>
+</button>
+            </form>
           </td>
         </tr>
         <%}%>
@@ -59,4 +70,5 @@
 
   </div>
 </div><!-- / container-->
+
 <%- include("footer") -%>

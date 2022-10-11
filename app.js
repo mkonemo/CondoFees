@@ -9,6 +9,7 @@ const app = express();
 //let fees = [{feeId:112, feeDesc:"Buy food", feePaymentReason:"Riscaldamento"}, {feeId: 432, feeDesc:"Cook food"}, {feeId:564, feeDesc:"Eat food", feePaid: "NO"}];
 
 let alreadyPaid = 0;
+let toBePaid = 0;
 
 app.set('view engine', 'ejs');
 
@@ -53,6 +54,7 @@ app.get("/", function(req, res) {
       res.render("list", {
         listTitle: "Condo Fees up to " + day,
         alreadyPaid: alreadyPaid,
+        toBePaid: toBePaid,
         feeList: foundFees
       });
 

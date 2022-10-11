@@ -37,9 +37,9 @@
           <td class="text-right">
             <%= feeList[i].feeDueDate.toLocaleDateString('en-GB') %>
           </td>
-          <td>
+          <td class="text-center">
             <% if (feeList[i].feePaid === "on") {%>
-            <%= alreadyPaid = alreadyPaid + feeList[i].feeAmount %>
+            <% alreadyPaid = alreadyPaid + feeList[i].feeAmount %>
             <input type="checkbox" name="" value="true" checked>
             <style>
               #tr_<%=i%> {
@@ -48,6 +48,7 @@
             </style>
             <% } else { %>
             <input type="checkbox" name="" value="false">
+            <% toBePaid = toBePaid + feeList[i].feeAmount %>
             <% } %>
           </td>
           <td>
@@ -59,7 +60,7 @@
           <td>
             <%= feeList[i].feePaymentReason %>
           </td>
-          <td>
+          <td class="text-center">
             <form class="" action="/delete" method="post">
               <button class="delete-btn" type="submit" value="<%= feeList[i]._id %>" name="deleteBtn">
                 <span class="material-symbols-outlined">
@@ -74,6 +75,9 @@
     </table>
     <p>
       Paid: <%= alreadyPaid %>€
+    </p>
+    <p>
+      To be paid: <%= toBePaid %>€
     </p>
 
   </div>

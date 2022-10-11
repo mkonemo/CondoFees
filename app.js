@@ -8,6 +8,8 @@ const app = express();
 
 //let fees = [{feeId:112, feeDesc:"Buy food", feePaymentReason:"Riscaldamento"}, {feeId: 432, feeDesc:"Cook food"}, {feeId:564, feeDesc:"Eat food", feePaid: "NO"}];
 
+let alreadyPaid = 0;
+
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
@@ -25,27 +27,16 @@ const feesSchema = {
   feeId: {type: Number},
   feeDescription: String,
   feeAmount: Number,
-  feeDueDate: {type: Date, default: Date.now, required: false},
+  feeDueDate: {type: Date, required: false},
   feePaid: String,
-  feePaymentDate: {type: Date, default: Date.now, required: false},
+  feePaymentDate: {type: Date, required: false},
   feePaymentMethod: String,
   feePaymentReason: String
 }
 
 const Fee = mongoose.model("Fee", feesSchema);
 
-const fee1 = new Fee({
-  feeId: 01,
-  feeDescription: "Test fee description",
-  feeAmount: 00,
-  feeDueDate: new Date(),
-  feePaid: "off",
-  feePaymentMethod: "bonifico",
-  feePaymentDate: new Date(),
-  feePaymentReason: "Test payment"
-});
 
-const defaultFees = [fee1];
 
 // ROOT
 
@@ -58,25 +49,20 @@ app.get("/", function(req, res) {
   });
 
   Fee.find({}, function(err, foundFees) {
-    if (foundFees.length === 0) {
-      Fee.insertMany(defaultFees, (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Success!");
-        }
-      });
-      res.redirect("/");
-    } else {
+
       res.render("list", {
         listTitle: "Condo Fees up to " + day,
+        alreadyPaid: alreadyPaid,
         feeList: foundFees
       });
-    }
+
   })
 });
 
 app.post("/", function(req, res) {
+
+
+
   console.log(req.body);
 
   const fee = new Fee ({
@@ -95,7 +81,18 @@ app.post("/", function(req, res) {
 
 });
 
-
+// DELETE DOCUMENT FROM DB
+app.post("/delete", (req, res) => {
+  const selectedFeeId = req.body.deleteBtn;
+  Fee.findByIdAndRemove(selectedFeeId, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Item deleted");
+      res.redirect("/");
+    }
+  })
+})
 
 // ALL || 404
 app.all('*', (req, res) => {

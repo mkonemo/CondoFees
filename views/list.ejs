@@ -1,11 +1,12 @@
 <%- include("header") -%>
 <div class="container">
   <div class="box" id="heading">
-     <h1><%= listTitle %></h1>
+    <h1><%= listTitle %></h1>
   </div>
 
   <%- include("form") -%>
-<hr />
+  <hr />
+
   <div class="box">
     <table class="table my-5">
       <thead>
@@ -18,13 +19,13 @@
           <th scope="col">Payment method</th>
           <th scope="col">Payment date</th>
           <th scope="col">Payment reason</th>
-          <th>    </th>
+          <th> </th>
         </tr>
       </thead>
       <tbody>
         <% for (let i=0; i<feeList.length; i++){%>
         <tr id="tr_<%= i %>" class="fee">
-          <td>
+          <td class="text-right">
             <%= feeList[i].feeId %>
           </td>
           <td>
@@ -33,13 +34,18 @@
           <td class="text-right">
             <%= feeList[i].feeAmount %>€
           </td>
-          <td  class="text-right">
+          <td class="text-right">
             <%= feeList[i].feeDueDate.toLocaleDateString('en-GB') %>
           </td>
           <td>
             <% if (feeList[i].feePaid === "on") {%>
+            <%= alreadyPaid = alreadyPaid + feeList[i].feeAmount %>
             <input type="checkbox" name="" value="true" checked>
-            <style>#tr_<%=i%>{background: springgreen;}</style>
+            <style>
+              #tr_<%=i%> {
+                background: beige;
+              }
+            </style>
             <% } else { %>
             <input type="checkbox" name="" value="false">
             <% } %>
@@ -47,26 +53,28 @@
           <td>
             <%= feeList[i].feePaymentMethod %>
           </td>
-          <td  class="text-right">
+          <td class="text-right">
             <%= feeList[i].feePaymentDate.toLocaleDateString('en-GB') %>
           </td>
           <td>
             <%= feeList[i].feePaymentReason %>
           </td>
           <td>
-            <form>
-              <button class="delete-btn" type="submit" name="button">
+            <form class="" action="/delete" method="post">
+              <button class="delete-btn" type="submit" value="<%= feeList[i]._id %>" name="deleteBtn">
                 <span class="material-symbols-outlined">
-delete
-</span>
-</button>
+                  delete
+                </span>
+              </button>
             </form>
           </td>
         </tr>
         <%}%>
       </tbody>
     </table>
-
+    <p>
+      Paid: <%= alreadyPaid %>€
+    </p>
 
   </div>
 </div><!-- / container-->

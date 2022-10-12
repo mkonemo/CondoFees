@@ -71,10 +71,10 @@ app.post("/", function(req, res) {
     feeId: req.body.feeId,
     feeDescription: req.body.feeDescription,
     feeAmount: req.body.feeAmount,
-    feeDueDate: new Date(req.body.feeDueDate),
+    feeDueDate: req.body.feeDueDate,
     feePaid: req.body.feePaid,
     feePaymentMethod: req.body.feePaymentMethod,
-    feePaymentDate: new Date(req.body.feePaymentDate),
+    feePaymentDate: req.body.feePaymentDate,
     feePaymentReason: req.body.feePaymentReason
   })
 
